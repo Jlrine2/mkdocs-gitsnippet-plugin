@@ -44,19 +44,19 @@ class GitSnippetPlugin(BasePlugin):
 
             destinationPath = os.path.realpath(self.config['base_path'] + "/" +
                                                root + "/gen_/" + path)
-
+            filepath = tmpRoot + '/' + destinationPath
             if not os.path.isfile(destinationPath):
                 print("Copying image: " + path + " to " + destinationPath)
 
                 os.makedirs(os.path.dirname(destinationPath), exist_ok=True)
                 if is_url(path):
                     response = requests.get(path)
-                    with open(destinationPath, "wb") as f:
+                    with open(filepath, "wb") as f:
                         for chunk in response.iter_content():
                             if chunk:
                                 f.write(chunk)
                 else:
-                    shutil.copyfile(tmpRoot + "/" + path, destinationPath)
+                    shutil.copyfile(filepath, destinationPath)
 
         for path in paths:
             markdown = markdown.replace(path, "gen_/" + path)
