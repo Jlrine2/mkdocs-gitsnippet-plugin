@@ -17,7 +17,7 @@ setup(
     author_email='samuel.covi@gmail.com',
     license='MIT',
     python_requires='>=2.7.9,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*',
-    install_requires=['mkdocs>=0.17', 'gitpython'],
+    install_requires=['mkdocs>=0.17', 'gitpython', 'requests'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',

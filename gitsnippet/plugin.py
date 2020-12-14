@@ -2,12 +2,19 @@ from mkdocs.plugins import BasePlugin
 
 from jinja2 import Template
 from git import Repo
+from urllib.parse import urlparse
 import uuid
 import shutil
 import re
 import os
 import mkdocs
+import requests
 import sys
+
+
+def is_url(path):
+    parsed_url = urlparse(path)
+    return all([parsed_url.scheme, parsed_url.netloc, parsed_url.path])
 
 
 class GitSnippetPlugin(BasePlugin):
@@ -42,7 +49,14 @@ class GitSnippetPlugin(BasePlugin):
                 print("Copying image: " + path + " to " + destinationPath)
 
                 os.makedirs(os.path.dirname(destinationPath), exist_ok=True)
-                shutil.copyfile(tmpRoot + "/" + path, destinationPath)
+                if is_url(path):
+                    response = requests.get(path)
+                    with open(destinationPath, "wb") as f:
+                        for chunk in response.iter_content():
+                            if chunk:
+                                f.write(chunk)
+                else:
+                    shutil.copyfile(tmpRoot + "/" + path, destinationPath)
 
         for path in paths:
             markdown = markdown.replace(path, "gen_/" + path)
