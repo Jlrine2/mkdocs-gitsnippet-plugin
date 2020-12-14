@@ -29,7 +29,7 @@ class GitSnippetPlugin(BasePlugin):
 
         paths = []
 
-        p = re.compile("!\[.*\]\((.*)\)")
+        p = re.compile("!\[.*?\]\((.*?)\)")
         it = p.finditer(markdown)
         for match in it:
             path = match.group(1)
