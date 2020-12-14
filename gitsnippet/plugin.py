@@ -40,11 +40,11 @@ class GitSnippetPlugin(BasePlugin):
         it = p.finditer(markdown)
         for match in it:
             path = match.group(1)
-            paths.append(path)
 
             destinationPath = os.path.realpath(self.config['base_path'] + "/" +
                                                root + "/gen_/" + path)
             filepath = tmpRoot + '/' + destinationPath
+            paths.append(destinationPath)
             if not os.path.isfile(destinationPath):
                 print("Copying image: " + path + " to " + destinationPath)
 
