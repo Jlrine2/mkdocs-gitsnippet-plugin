@@ -45,10 +45,10 @@ class GitSnippetPlugin(BasePlugin):
                                                root + "/gen_/" + path)
             filepath = tmpRoot + '/' + destinationPath
             paths.append(destinationPath)
-            if not os.path.isfile(destinationPath):
+            if not os.path.isfile(filepath):
                 print("Copying image: " + path + " to " + destinationPath)
 
-                os.makedirs(os.path.dirname(destinationPath), exist_ok=True)
+                os.makedirs(os.path.dirname(filepath), exist_ok=True)
                 if is_url(path):
                     response = requests.get(path)
                     with open(filepath, "wb") as f:
